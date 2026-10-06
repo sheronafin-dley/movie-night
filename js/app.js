@@ -174,3 +174,208 @@ if (movieGrid && genreFilter && resultsCount && movieModal) {
         }
     });
 }
+// Ticket Requests page
+const ticketForm = document.querySelector("#ticketForm");
+
+if (ticketForm) {
+    const ticketPrice = 1500;
+
+    // Only titles with a scheduled sample screening can be requested.
+    const screeningMovieIds = [1, 2, 3, 5];
+
+    const nameInput = document.querySelector("#fullName");
+    const emailInput = document.querySelector("#email");
+    const movieSelect = document.querySelector("#ticketMovie");
+    const screeningSelect = document.querySelector("#screening");
+    const quantityInput = document.querySelector("#quantity");
+    const formMessage = document.querySelector("#formMessage");
+    const confirmation = document.querySelector("#confirmation");
+
+    const requestToast = new bootstrap.Toast(
+        document.querySelector("#requestToast"),
+        { delay: 6000 }
+    );
+
+    function formatMoney(amount) {
+        return "J$" + amount.toLocaleString("en-JM", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
+    function getSelectedMovie() {
+        return movies.find(function (movie) {
+            return movie.id === Number(movieSelect.value);
+        });
+    }
+
+    function hasAvailableScreening(movie) {
+        return Boolean(movie && screeningMovieIds.includes(movie.id));
+    }
+
+    function getValidQuantity() {
+        const quantity = Number(quantityInput.value);
+
+        if (Number.isInteger(quantity) && quantity >= 1 && quantity <= 6) {
+            return quantity;
+        }
+
+        return 0;
+    }
+
+    // Fill the title dropdown from the existing movies array.
+    for (const movie of movies) {
+        const option = document.createElement("option");
+
+        option.value = movie.id;
+        option.textContent =
+            `${movie.title} (${getScreeningType(movie)})`;
+
+        if (!hasAvailableScreening(movie)) {
+            option.disabled = true;
+            option.textContent += " - screening to be announced";
+        }
+
+        movieSelect.appendChild(option);
+    }
+
+    function updateScreeningOptions() {
+        const movie = getSelectedMovie();
+
+        screeningSelect.innerHTML = "";
+        screeningSelect.add(new Option("Choose a screening", ""));
+        screeningSelect.disabled = !hasAvailableScreening(movie);
+
+        if (hasAvailableScreening(movie)) {
+            screeningSelect.add(new Option(movie.screening, "sample"));
+        } else {
+            screeningSelect.options[0].textContent = "Choose a title first";
+        }
+    }
+
+    function updateSummary() {
+        const movie = getSelectedMovie();
+        const quantity = getValidQuantity();
+
+        const hasScreening =
+            hasAvailableScreening(movie) &&
+            screeningSelect.value === "sample";
+
+        const total = hasScreening ? quantity * ticketPrice : 0;
+
+        document.querySelector("#ticketTotal").textContent =
+            formatMoney(total);
+
+        document.querySelector("#summaryMovie").textContent =
+            movie ? movie.title : "No title selected";
+
+        document.querySelector("#summaryScreening").textContent =
+            hasScreening ? movie.screening : "No screening selected";
+
+        document.querySelector("#summaryQuantity").textContent =
+            quantity ? String(quantity) : "Choose 1 to 6";
+    }
+
+    function setFieldState(field, isValid) {
+        field.classList.toggle("is-invalid", !isValid);
+        field.setAttribute("aria-invalid", String(!isValid));
+    }
+
+    function clearPreviousFeedback() {
+        confirmation.classList.add("d-none");
+        formMessage.textContent = "";
+        requestToast.hide();
+
+        for (const field of ticketForm.querySelectorAll("input, select")) {
+            field.classList.remove("is-invalid");
+            field.removeAttribute("aria-invalid");
+        }
+    }
+
+    movieSelect.addEventListener("change", function () {
+        updateScreeningOptions();
+        updateSummary();
+    });
+
+    screeningSelect.addEventListener("change", updateSummary);
+    quantityInput.addEventListener("input", updateSummary);
+
+    // Editing a request removes confirmation for the previous values.
+    ticketForm.addEventListener("input", clearPreviousFeedback);
+    ticketForm.addEventListener("change", clearPreviousFeedback);
+
+    ticketForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        nameInput.value = nameInput.value.trim();
+        emailInput.value = emailInput.value.trim();
+
+        const movie = getSelectedMovie();
+        const quantity = getValidQuantity();
+
+        const nameValid = nameInput.value.length >= 2;
+        const emailValid =
+            emailInput.value !== "" && emailInput.checkValidity();
+        const movieValid = hasAvailableScreening(movie);
+        const screeningValid =
+            movieValid && screeningSelect.value === "sample";
+        const quantityValid = quantity !== 0;
+
+        setFieldState(nameInput, nameValid);
+        setFieldState(emailInput, emailValid);
+        setFieldState(movieSelect, movieValid);
+        setFieldState(screeningSelect, screeningValid);
+        setFieldState(quantityInput, quantityValid);
+
+        if (
+            !nameValid ||
+            !emailValid ||
+            !movieValid ||
+            !screeningValid ||
+            !quantityValid
+        ) {
+            confirmation.classList.add("d-none");
+            formMessage.textContent =
+                "Please correct the highlighted fields.";
+
+            ticketForm.querySelector(".is-invalid").focus();
+            return;
+        }
+
+        formMessage.textContent = "";
+
+        const total = quantity * ticketPrice;
+        const ticketWord = quantity === 1 ? "ticket" : "tickets";
+
+        // textContent displays the name safely as text.
+        confirmation.textContent =
+            `Thank you, ${nameInput.value}. Your demonstration request ` +
+            `for ${quantity} ${ticketWord} to ${movie.title} is complete. ` +
+            `Screening: ${movie.screening}. ` +
+            `Sample total: ${formatMoney(total)}. ` +
+            `No real booking or email has been sent.`;
+
+        confirmation.classList.remove("d-none");
+        requestToast.show();
+    });
+
+    // Meaningful jQuery event handling and DOM interaction.
+    $("#summaryToggle").on("click", function () {
+        const isExpanded = $(this).attr("aria-expanded") === "true";
+
+        $(this)
+            .attr("aria-expanded", String(!isExpanded))
+            .text(isExpanded ? "Show Summary" : "Hide Summary");
+
+        const reduceMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        $("#summaryDetails")
+            .stop(true, true)
+            .slideToggle(reduceMotion ? 0 : 200);
+    });
+
+    updateScreeningOptions();
+    updateSummary();
+}

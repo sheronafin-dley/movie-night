@@ -221,3 +221,49 @@ button:focus-visible {
 .modal-footer {
     border-color: #293142;
 }
+/* Ticket Requests page */
+.ticket-panel {
+    background-color: var(--panel-background);
+    border: 1px solid #293142;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+}
+
+.form-control {
+    background-color: var(--page-background);
+    color: var(--main-text);
+    border-color: #46536b;
+}
+
+.form-control:focus {
+    background-color: var(--page-background);
+    color: var(--main-text);
+    border-color: var(--heading-accent);
+    box-shadow: 0 0 0 0.25rem rgb(96 165 250 / 25%);
+}
+
+.form-text,
+.ticket-panel dd {
+    color: var(--secondary-text);
+}
+
+.ticket-panel dd {
+    overflow-wrap: anywhere;
+}
+
+.ticket-total {
+    color: var(--heading-accent);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+#confirmation {
+    overflow-wrap: anywhere;
+}
+
+.toast {
+    --bs-toast-bg: var(--panel-background);
+    --bs-toast-header-bg: var(--panel-background);
+    --bs-toast-header-color: var(--main-text);
+    color: var(--main-text);
+}
