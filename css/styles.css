@@ -195,3 +195,29 @@ button:focus-visible {
     color: var(--page-background);
     padding: 0.75rem 1rem;
 }
+/* Movies page */
+.browse-heading {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+}
+
+.form-select {
+    background-color: var(--panel-background);
+    color: var(--main-text);
+    border-color: #46536b;
+}
+
+.form-select:focus {
+    border-color: var(--heading-accent);
+    box-shadow: 0 0 0 0.25rem rgb(96 165 250 / 25%);
+}
+
+.modal-content {
+    background-color: var(--panel-background);
+    color: var(--main-text);
+    border: 1px solid #46536b;
+}
+
+.modal-header,
+.modal-footer {
+    border-color: #293142;
+}
