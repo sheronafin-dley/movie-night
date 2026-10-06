@@ -123,3 +123,75 @@ button:focus-visible {
         padding: 4rem 0;
     }
 }
+/* Poster collage beside the welcome heading */
+.poster-collage {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    max-width: 25rem;
+    margin-inline: auto;
+    padding-block: 1rem;
+}
+
+.poster-collage img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    border: 1px solid #293142;
+    box-shadow: 0 12px 30px rgb(0 0 0 / 35%);
+}
+
+.poster-collage img:nth-child(even) {
+    transform: translateY(1rem);
+}
+
+/* Featured title cards */
+.movie-card {
+    background-color: var(--panel-background);
+    border: 1px solid #293142;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.movie-poster {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+}
+
+.movie-card .card-title {
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.movie-category {
+    color: var(--secondary-text);
+    font-size: 0.9rem;
+}
+
+.screening-badge {
+    background-color: #172b50;
+    color: #bfdbfe;
+    white-space: normal;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.screening-panel {
+    background-color: var(--page-background);
+    border: 1px solid #293142;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+}
+
+.skip-link {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 1100;
+    background-color: var(--main-text);
+    color: var(--page-background);
+    padding: 0.75rem 1rem;
+}
