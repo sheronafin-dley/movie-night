@@ -1,0 +1,125 @@
+/* Shared website colours */
+:root {
+    --page-background: #0b0d12;
+    --panel-background: #151a24;
+    --accent-blue: #2563eb;
+    --heading-accent: #60a5fa;
+    --main-text: #f8fafc;
+    --secondary-text: #b8c0cc;
+}
+
+body {
+    background-color: var(--page-background);
+    color: var(--main-text);
+    font-family: "Inter", sans-serif;
+    line-height: 1.7;
+}
+
+h1,
+h2,
+.navbar-brand {
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 900;
+}
+
+h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.12;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    letter-spacing: -0.03em;
+}
+
+.site-navbar {
+    background-color: var(--panel-background);
+    border-bottom: 1px solid #293142;
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-size: 1.4rem;
+    letter-spacing: -0.05em;
+}
+
+.brand-accent {
+    color: var(--heading-accent);
+}
+
+.nav-link {
+    color: var(--secondary-text);
+}
+
+.nav-link:hover,
+.nav-link:focus,
+.navbar-nav .nav-link.active {
+    color: var(--main-text);
+}
+
+.hero {
+    padding: 6rem 0;
+    background: radial-gradient(
+        ellipse at top right,
+        #13264b 0%,
+        var(--page-background) 65%
+    );
+}
+
+.eyebrow {
+    color: var(--heading-accent);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+}
+
+.hero-description {
+    max-width: 36rem;
+    color: var(--secondary-text);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.section-description,
+.site-footer {
+    color: var(--secondary-text);
+}
+
+.btn {
+    font-weight: 600;
+    border-radius: 0.5rem;
+    padding: 0.7rem 1.2rem;
+}
+
+.btn-primary {
+    --bs-btn-bg: var(--accent-blue);
+    --bs-btn-border-color: var(--accent-blue);
+    --bs-btn-hover-bg: #1d4ed8;
+    --bs-btn-hover-border-color: #1d4ed8;
+    --bs-btn-active-bg: #1e40af;
+    --bs-btn-active-border-color: #1e40af;
+}
+
+.screenings-section {
+    background-color: var(--panel-background);
+}
+
+.site-footer {
+    border-top: 1px solid #293142;
+    font-size: 0.9rem;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--heading-accent);
+    outline-offset: 4px;
+}
+
+@media (max-width: 767.98px) {
+    .hero {
+        padding: 4rem 0;
+    }
+}
