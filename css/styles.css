@@ -8,6 +8,7 @@
   --secondary-text: #b8c0cc;
 }
 
+/* Base styles */
 body {
   background-color: var(--page-background);
   color: var(--main-text);
@@ -34,6 +35,16 @@ h2 {
   letter-spacing: -0.03em;
 }
 
+.brand-accent {
+  color: var(--heading-accent);
+}
+
+.section-description,
+.site-footer {
+  color: var(--secondary-text);
+}
+
+/* Navigation */
 .site-navbar {
   background-color: var(--panel-background);
   border-bottom: 1px solid #293142;
@@ -43,10 +54,6 @@ h2 {
 .navbar-brand {
   font-size: 1.4rem;
   letter-spacing: -0.05em;
-}
-
-.brand-accent {
-  color: var(--heading-accent);
 }
 
 .nav-link {
@@ -59,13 +66,19 @@ h2 {
   color: var(--main-text);
 }
 
+/* Home page welcome section */
 .hero {
-  padding: 6rem 0;
+  padding: 3rem 0 4rem;
   background: radial-gradient(
     ellipse at top right,
     #13264b 0%,
     var(--page-background) 65%
   );
+}
+
+/* Align welcome text with the top of the poster collage */
+.hero .row {
+  align-items: flex-start;
 }
 
 .eyebrow {
@@ -83,11 +96,7 @@ h2 {
   margin-bottom: 2rem;
 }
 
-.section-description,
-.site-footer {
-  color: var(--secondary-text);
-}
-
+/* Buttons */
 .btn {
   font-weight: 600;
   border-radius: 0.5rem;
@@ -103,34 +112,14 @@ h2 {
   --bs-btn-active-border-color: #1e40af;
 }
 
-.screenings-section {
-  background-color: var(--panel-background);
-}
-
-.site-footer {
-  border-top: 1px solid #293142;
-  font-size: 0.9rem;
-}
-
-a:focus-visible,
-button:focus-visible {
-  outline: 3px solid var(--heading-accent);
-  outline-offset: 4px;
-}
-
-@media (max-width: 767.98px) {
-  .hero {
-    padding: 4rem 0;
-  }
-}
-/* Poster collage beside the welcome heading */
+/* Poster collage */
 .poster-collage {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
   max-width: 25rem;
   margin-inline: auto;
-  padding-block: 1rem;
+  padding: 0 0 1rem;
 }
 
 .poster-collage img {
@@ -147,7 +136,7 @@ button:focus-visible {
   transform: translateY(1rem);
 }
 
-/* Featured title cards */
+/* Movie cards */
 .movie-card {
   background-color: var(--panel-background);
   border: 1px solid #293142;
@@ -156,6 +145,7 @@ button:focus-visible {
 }
 
 .movie-poster {
+  display: block;
   width: 100%;
   aspect-ratio: 2 / 3;
   object-fit: cover;
@@ -171,12 +161,29 @@ button:focus-visible {
   font-size: 0.9rem;
 }
 
+/* Plain screening labels */
 .screening-badge {
-  background-color: #172b50;
-  color: #bfdbfe;
+  display: inline-block;
+  background: transparent;
+  color: var(--heading-accent);
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.5;
+
   white-space: normal;
   text-align: left;
-  line-height: 1.5;
+}
+
+/* Upcoming screenings */
+.screenings-section {
+  background-color: var(--panel-background);
 }
 
 .screening-panel {
@@ -184,6 +191,102 @@ button:focus-visible {
   border: 1px solid #293142;
   border-radius: 0.75rem;
   padding: 1.5rem;
+}
+
+/* Movies page */
+.browse-heading {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+}
+
+/* Form controls */
+.form-select {
+  background-color: var(--panel-background);
+  color: var(--main-text);
+  border-color: #46536b;
+}
+
+.form-control {
+  background-color: var(--page-background);
+  color: var(--main-text);
+  border-color: #46536b;
+}
+
+.form-select:focus,
+.form-control:focus {
+  color: var(--main-text);
+  border-color: var(--heading-accent);
+  box-shadow: 0 0 0 0.25rem rgb(96 165 250 / 25%);
+}
+
+.form-control:focus {
+  background-color: var(--page-background);
+}
+
+.form-text {
+  color: var(--secondary-text);
+}
+
+/* Movie details Modal */
+.modal-content {
+  background-color: var(--panel-background);
+  color: var(--main-text);
+  border: 1px solid #46536b;
+}
+
+.modal-header,
+.modal-footer {
+  border-color: #293142;
+}
+
+/* Ticket Requests page */
+.ticket-panel {
+  background-color: var(--panel-background);
+  border: 1px solid #293142;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+
+.ticket-panel dd {
+  color: var(--secondary-text);
+  overflow-wrap: anywhere;
+}
+
+.ticket-total {
+  color: var(--heading-accent);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* Plain confirmation beneath the form */
+#confirmation {
+  color: var(--main-text);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+/* Bootstrap Toast */
+.toast {
+  --bs-toast-bg: var(--panel-background);
+  --bs-toast-header-bg: var(--panel-background);
+  --bs-toast-header-color: var(--main-text);
+  color: var(--main-text);
+}
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid #293142;
+  font-size: 0.9rem;
+}
+
+/* Keyboard accessibility */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--heading-accent);
+  outline-offset: 4px;
 }
 
 .skip-link {
@@ -195,95 +298,15 @@ button:focus-visible {
   color: var(--page-background);
   padding: 0.75rem 1rem;
 }
-/* Movies page */
-.browse-heading {
-  font-size: clamp(2.25rem, 5vw, 3.5rem);
-}
 
-.form-select {
-  background-color: var(--panel-background);
-  color: var(--main-text);
-  border-color: #46536b;
-}
+/* Mobile adjustments */
+@media (max-width: 767.98px) {
+  .hero {
+    padding: 2rem 0 3rem;
+  }
 
-.form-select:focus {
-  border-color: var(--heading-accent);
-  box-shadow: 0 0 0 0.25rem rgb(96 165 250 / 25%);
-}
-
-.modal-content {
-  background-color: var(--panel-background);
-  color: var(--main-text);
-  border: 1px solid #46536b;
-}
-
-.modal-header,
-.modal-footer {
-  border-color: #293142;
-}
-/* Ticket Requests page */
-.ticket-panel {
-  background-color: var(--panel-background);
-  border: 1px solid #293142;
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-}
-
-.form-control {
-  background-color: var(--page-background);
-  color: var(--main-text);
-  border-color: #46536b;
-}
-
-.form-control:focus {
-  background-color: var(--page-background);
-  color: var(--main-text);
-  border-color: var(--heading-accent);
-  box-shadow: 0 0 0 0.25rem rgb(96 165 250 / 25%);
-}
-
-.form-text,
-.ticket-panel dd {
-  color: var(--secondary-text);
-}
-
-.ticket-panel dd {
-  overflow-wrap: anywhere;
-}
-
-.ticket-total {
-  color: var(--heading-accent);
-  font-size: 2rem;
-  font-weight: 700;
-}
-
-#confirmation {
-  overflow-wrap: anywhere;
-}
-
-.toast {
-  --bs-toast-bg: var(--panel-background);
-  --bs-toast-header-bg: var(--panel-background);
-  --bs-toast-header-color: var(--main-text);
-  color: var(--main-text);
-}
-/* Move the welcome section closer to the navbar */
-.hero {
-  padding-top: 3rem;
-  padding-bottom: 4rem;
-}
-
-/* Align the first poster with the top of the text */
-.poster-collage {
-  padding-top: 0;
-}
-/* Plain confirmation beneath the form */
-.confirmation-message {
-    color: var(--main-text);
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-    padding: 0;
-    line-height: 1.7;
-    overflow-wrap: anywhere;
+  .ticket-panel,
+  .screening-panel {
+    padding: 1.25rem;
+  }
 }
