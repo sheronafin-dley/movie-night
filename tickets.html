@@ -66,18 +66,20 @@
     <main class="container py-5" id="main-content">
         <section aria-labelledby="tickets-heading">
             <p class="eyebrow">PLAN YOUR NIGHT</p>
+
             <h1 class="browse-heading" id="tickets-heading">
                 Request your tickets.
             </h1>
+
             <p class="section-description">
-                Choose a title and sample screening, then tell us how many
+                Choose a title and screening, then tell us how many
                 tickets you would like.
             </p>
 
-            <div class="alert alert-info">
-                This is a student demonstration. Prices and schedules are
-                examples. No payment, email or real booking will be processed.
-            </div>
+            <p class="section-description small mb-4">
+                For demonstration only. Sample prices and screenings;
+                no real bookings or payments.
+            </p>
 
             <div class="row g-4 mt-2">
                 <div class="col-lg-8">
@@ -89,10 +91,16 @@
                                 <label class="form-label" for="fullName">
                                     Full name
                                 </label>
-                                <input class="form-control" type="text"
-                                       id="fullName" name="fullName"
-                                       autocomplete="name" maxlength="100"
-                                       aria-describedby="nameError" required>
+
+                                <input class="form-control"
+                                       type="text"
+                                       id="fullName"
+                                       name="fullName"
+                                       autocomplete="name"
+                                       maxlength="100"
+                                       aria-describedby="nameError"
+                                       required>
+
                                 <div class="invalid-feedback" id="nameError">
                                     Enter your name using at least two characters.
                                 </div>
@@ -102,10 +110,16 @@
                                 <label class="form-label" for="email">
                                     Email address
                                 </label>
-                                <input class="form-control" type="email"
-                                       id="email" name="email"
-                                       autocomplete="email" maxlength="254"
-                                       aria-describedby="emailError" required>
+
+                                <input class="form-control"
+                                       type="email"
+                                       id="email"
+                                       name="email"
+                                       autocomplete="email"
+                                       maxlength="254"
+                                       aria-describedby="emailError"
+                                       required>
+
                                 <div class="invalid-feedback" id="emailError">
                                     Enter a valid email address.
                                 </div>
@@ -115,31 +129,40 @@
                                 <label class="form-label" for="ticketMovie">
                                     Film or special episode screening
                                 </label>
-                                <select class="form-select" id="ticketMovie"
+
+                                <select class="form-select"
+                                        id="ticketMovie"
                                         name="movie"
-                                        aria-describedby="movieError" required>
+                                        aria-describedby="movieError"
+                                        required>
                                     <option value="">Choose a title</option>
                                 </select>
+
                                 <div class="invalid-feedback" id="movieError">
-                                    Choose a title with an available sample screening.
+                                    Choose a title with an available screening.
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <label class="form-label" for="screening">
-                                    Sample screening
+                                    Screening
                                 </label>
-                                <select class="form-select" id="screening"
+
+                                <select class="form-select"
+                                        id="screening"
                                         name="screening"
                                         aria-describedby="screeningHelp screeningError"
-                                        disabled required>
+                                        disabled
+                                        required>
                                     <option value="">Choose a title first</option>
                                 </select>
+
                                 <p class="form-text" id="screeningHelp">
                                     Screening options appear after you choose a title.
                                 </p>
+
                                 <div class="invalid-feedback" id="screeningError">
-                                    Choose an available sample screening.
+                                    Choose an available screening.
                                 </div>
                             </div>
 
@@ -147,14 +170,22 @@
                                 <label class="form-label" for="quantity">
                                     Number of tickets
                                 </label>
-                                <input class="form-control" type="number"
-                                       id="quantity" name="quantity"
-                                       min="1" max="6" step="1" value="1"
+
+                                <input class="form-control"
+                                       type="number"
+                                       id="quantity"
+                                       name="quantity"
+                                       min="1"
+                                       max="6"
+                                       step="1"
+                                       value="1"
                                        aria-describedby="quantityHelp quantityError"
                                        required>
+
                                 <p class="form-text" id="quantityHelp">
                                     Choose 1 to 6 tickets.
                                 </p>
+
                                 <div class="invalid-feedback" id="quantityError">
                                     Enter a whole number from 1 to 6.
                                 </div>
@@ -162,31 +193,39 @@
                         </div>
 
                         <p class="text-danger mt-3 mb-0"
-                           id="formMessage" role="alert"></p>
+                           id="formMessage"
+                           role="alert"></p>
 
                         <button class="btn btn-primary mt-4" type="submit">
                             Submit Ticket Request
                         </button>
                     </form>
 
-                    <div class="alert alert-success mt-4 d-none"
-                         id="confirmation" role="status"></div>
+                    <!-- Plain confirmation text, populated by JavaScript -->
+                    <p class="confirmation-message mt-4 d-none"
+                       id="confirmation"
+                       role="status"
+                       aria-atomic="true"></p>
                 </div>
 
                 <div class="col-lg-4">
-                    <aside class="ticket-panel" aria-labelledby="summary-heading">
+                    <aside class="ticket-panel"
+                           aria-labelledby="summary-heading">
                         <h2 class="h4" id="summary-heading">Request summary</h2>
 
                         <p class="section-description">
                             Sample ticket price: J$1,500 each
                         </p>
 
-                        <p class="ticket-total" id="ticketTotal" role="status">
+                        <p class="ticket-total"
+                           id="ticketTotal"
+                           role="status">
                             J$0.00
                         </p>
 
                         <button class="btn btn-outline-light w-100"
-                                id="summaryToggle" type="button"
+                                id="summaryToggle"
+                                type="button"
                                 aria-expanded="true"
                                 aria-controls="summaryDetails">
                             Hide Summary
@@ -198,7 +237,9 @@
                                 <dd id="summaryMovie">No title selected</dd>
 
                                 <dt>Screening</dt>
-                                <dd id="summaryScreening">No screening selected</dd>
+                                <dd id="summaryScreening">
+                                    No screening selected
+                                </dd>
 
                                 <dt>Tickets</dt>
                                 <dd id="summaryQuantity">1</dd>
@@ -210,16 +251,20 @@
         </section>
     </main>
 
-    <!-- The live region exists before the Toast is displayed -->
+    <!-- Bootstrap confirmation Toast -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3"
-         aria-live="polite" aria-atomic="true">
+         aria-live="polite"
+         aria-atomic="true">
         <div class="toast" id="requestToast">
             <div class="toast-header">
                 <strong class="me-auto">Movie Night</strong>
-                <button class="btn-close" type="button"
+
+                <button class="btn-close"
+                        type="button"
                         data-bs-dismiss="toast"
                         aria-label="Close notification"></button>
             </div>
+
             <div class="toast-body">
                 Your demonstration ticket request was completed.
                 See the confirmation below the form.
@@ -242,7 +287,6 @@
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
             crossorigin="anonymous"></script>
 
-    <!-- jQuery loads before our code -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="js/app.js"></script>
 </body>
