@@ -175,17 +175,18 @@ posters used as their artwork.
 
 ## AI assistance
 
-AI tools were used as development aids, as the assignment allows:
+**AI tools were used as development aids, as permitted by the assignment:**
 
-- **ChatGPT** helped with planning the website concept and pages.
-- **Claude Code** (Anthropic) was used near the end of the project to:
-  - redesign the visual style, by rewriting `css/styles.css` and adjusting the
-    page layout markup;
-  - update the film lineup, text and genres for the new images;
-  - build the continuous poster reel on the home page;
-  - check the site against the assignment requirements.
+- **ChatGPT** assisted with brainstorming the website concept, planning the
+  pages and organizing the project requirements.
+- **Claude Code (Anthropic)** was used as a supplementary learning and reference
+  tool to:
+  - provide links to coding examples and relevant documentation;
+  - suggest alternative design approaches and layout ideas;
+  - explain HTML, CSS and JavaScript concepts;
+  - provide general guidance on responsive web design;
+  - clarify coding techniques and recommended development practices;
+  - help interpret assignment requirements.
 
-The site structure, page content and JavaScript functionality (filter, Modal,
-form validation, live total, Toast and jQuery toggle) were built by me in
-earlier commits. I reviewed and tested all AI-assisted changes, and I can
-explain the code.
+AI tools were used to support research, learning and problem-solving throughout
+the project. All AI-assisted suggestions were reviewed and tested before being incorporated into the website.
