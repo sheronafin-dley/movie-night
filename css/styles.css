@@ -6,54 +6,98 @@
   --heading-accent: #60a5fa;
   --main-text: #f8fafc;
   --secondary-text: #b8c0cc;
+  --rule: #293142;
+  --field-border: #46536b;
+
+  --display-font: "Big Shoulders Display", "Arial Narrow", sans-serif;
+  --text-font: "Instrument Sans", "Segoe UI", sans-serif;
+
+  /* Vertical rhythm */
+  --space-section: 6rem;
+  --space-block: 2rem;
 }
 
 /* Base styles */
 body {
   background-color: var(--page-background);
   color: var(--main-text);
-  font-family: "Inter", sans-serif;
-  line-height: 1.7;
+  font-family: var(--text-font);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+
+  /* Keeps the footer at the bottom on short pages */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* The poster strip extends to the window edge; clip keeps the page from scrolling sideways */
+main {
+  flex: 1 0 auto;
+  overflow-x: clip;
 }
 
 h1,
 h2,
-.navbar-brand {
-  font-family: "Noto Sans", sans-serif;
-  font-weight: 900;
+.navbar-brand,
+.modal-title,
+legend {
+  font-family: var(--display-font);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: 0;
 }
 
 h1 {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  line-height: 1.12;
-  letter-spacing: -0.04em;
+  font-size: clamp(3rem, 8vw, 5.5rem);
   margin-bottom: 1.5rem;
 }
 
 h2 {
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-  letter-spacing: -0.03em;
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  margin-bottom: 1rem;
 }
 
-.brand-accent {
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+a {
   color: var(--heading-accent);
+  text-underline-offset: 0.2em;
 }
 
-.section-description,
-.site-footer {
+a:hover {
+  color: var(--main-text);
+}
+
+.lede,
+.section-description {
+  max-width: 38rem;
   color: var(--secondary-text);
+}
+
+.lede {
+  font-size: 1.125rem;
+}
+
+.fine-print {
+  max-width: 38rem;
+  color: var(--secondary-text);
+  font-size: 0.875rem;
 }
 
 /* Navigation */
 .site-navbar {
-  background-color: var(--panel-background);
-  border-bottom: 1px solid #293142;
+  background-color: var(--page-background);
+  border-bottom: 1px solid var(--rule);
   padding: 1rem 0;
 }
 
 .navbar-brand {
-  font-size: 1.4rem;
-  letter-spacing: -0.05em;
+  font-size: 2rem;
+  color: var(--main-text);
 }
 
 .nav-link {
@@ -66,41 +110,18 @@ h2 {
   color: var(--main-text);
 }
 
-/* Home page welcome section */
-.hero {
-  padding: 3rem 0 4rem;
-  background: radial-gradient(
-    ellipse at top right,
-    #13264b 0%,
-    var(--page-background) 65%
-  );
-}
-
-/* Align welcome text with the top of the poster collage */
-.hero .row {
-  align-items: flex-start;
-}
-
-.eyebrow {
-  color: var(--heading-accent);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  margin-bottom: 1rem;
-}
-
-.hero-description {
-  max-width: 36rem;
-  color: var(--secondary-text);
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
+.navbar-nav .nav-link.active {
+  text-decoration: underline;
+  text-decoration-color: var(--heading-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.5em;
 }
 
 /* Buttons */
 .btn {
   font-weight: 600;
-  border-radius: 0.5rem;
-  padding: 0.7rem 1.2rem;
+  border-radius: 2px;
+  padding: 0.65rem 1.25rem;
 }
 
 .btn-primary {
@@ -112,114 +133,261 @@ h2 {
   --bs-btn-active-border-color: #1e40af;
 }
 
-/* Poster collage */
-.poster-collage {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  max-width: 25rem;
-  margin-inline: auto;
-  padding: 0 0 1rem;
+.btn-outline-light {
+  --bs-btn-border-color: var(--field-border);
 }
 
-.poster-collage img {
+/* Plain text action used beside a primary button */
+.text-action {
+  font-weight: 600;
+}
+
+/* Home page: opening section */
+.hero {
+  padding-top: 4.5rem;
+}
+
+.hero-title {
+  max-width: 52rem;
+  font-size: clamp(3.5rem, 11vw, 7rem);
+  margin-bottom: var(--space-block);
+}
+
+.hero-intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 3rem;
+  row-gap: 1.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.hero-intro .lede {
+  margin-bottom: 0;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Poster strip: starts on the content edge, runs to the window edge */
+.poster-strip {
+  display: flex;
+  gap: 2px;
+  margin: 0 calc(50% - 50vw) 0 0;
+  padding: 0 1rem 1rem 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.poster-strip li {
+  flex: 0 0 clamp(10rem, 21vw, 15rem);
+  scroll-snap-align: start;
+}
+
+.poster-strip img,
+.lineup-poster {
   display: block;
   width: 100%;
   aspect-ratio: 2 / 3;
   object-fit: cover;
-  border-radius: 0.75rem;
-  border: 1px solid #293142;
-  box-shadow: 0 12px 30px rgb(0 0 0 / 35%);
 }
 
-.poster-collage img:nth-child(even) {
-  transform: translateY(1rem);
+.poster-caption {
+  padding: 0.75rem 1rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.35;
 }
 
-/* Movie cards */
-.movie-card {
-  background-color: var(--panel-background);
-  border: 1px solid #293142;
-  border-radius: 0.75rem;
-  overflow: hidden;
-}
-
-.movie-poster {
+.poster-caption strong {
   display: block;
-  width: 100%;
-  aspect-ratio: 2 / 3;
-  object-fit: cover;
+  font-weight: 600;
 }
 
-.movie-card .card-title {
-  font-weight: 700;
-  line-height: 1.4;
-}
-
-.movie-category {
+.poster-caption span,
+.title-meta {
   color: var(--secondary-text);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
-/* Plain screening labels */
-.screening-badge {
-  display: inline-block;
-  background: transparent;
-  color: var(--heading-accent);
-  border: 0;
-  border-radius: 0;
-  padding: 0;
-
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.95rem;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1.5;
-
-  white-space: normal;
-  text-align: left;
-}
-
-/* Upcoming screenings */
-.screenings-section {
+/* Home page: showtimes board */
+.showtimes {
+  margin-top: var(--space-section);
+  padding: var(--space-section) 0;
   background-color: var(--panel-background);
 }
 
-.screening-panel {
-  background-color: var(--page-background);
-  border: 1px solid #293142;
-  border-radius: 0.75rem;
-  padding: 1.5rem;
+.showtimes-header {
+  margin-bottom: 3rem;
 }
 
-/* Movies page */
-.browse-heading {
-  font-size: clamp(2.25rem, 5vw, 3.5rem);
+.showtimes-day + .showtimes-day {
+  margin-top: 3.5rem;
+}
+
+.showtimes-date {
+  margin-bottom: 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--rule);
+  color: var(--secondary-text);
+  font-size: 1rem;
+}
+
+.showtimes-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.showtime {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr) 16rem 9rem;
+  align-items: baseline;
+  column-gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.showtime-time {
+  color: var(--heading-accent);
+  font-family: var(--display-font);
+  font-size: 3rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.showtime-film {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.showtime-film .title-meta {
+  display: block;
+  font-weight: 400;
+}
+
+.showtime-venue {
+  color: var(--secondary-text);
+}
+
+.showtime-link {
+  font-weight: 600;
+  justify-self: end;
+}
+
+/* Inner pages */
+.page-main {
+  padding-top: 4.5rem;
+  padding-bottom: var(--space-section);
+}
+
+/* Movies page: filter bar */
+.lineup-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin: 3rem 0 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.genre-field {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.genre-field .form-label {
+  margin: 0;
+  font-weight: 600;
+}
+
+.genre-field .form-select {
+  width: auto;
+  min-width: 12rem;
+}
+
+/* Movies page: unframed poster grid */
+.lineup-item {
+  position: relative;
+}
+
+.lineup-poster {
+  margin-bottom: 1rem;
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+  transition: outline-color 150ms ease;
+}
+
+.lineup-title {
+  margin-bottom: 0.25rem;
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.lineup-item .title-meta {
+  margin-bottom: 0.5rem;
+}
+
+/* The details button covers the whole title so the poster opens it too */
+.lineup-details {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--heading-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.lineup-details::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.lineup-item:hover .lineup-poster,
+.lineup-item:has(.lineup-details:focus-visible) .lineup-poster {
+  outline-color: var(--heading-accent);
+}
+
+.lineup-item:hover .lineup-details {
+  color: var(--main-text);
 }
 
 /* Form controls */
-.form-select {
-  background-color: var(--panel-background);
-  color: var(--main-text);
-  border-color: #46536b;
-}
-
+.form-select,
 .form-control {
   background-color: var(--page-background);
   color: var(--main-text);
-  border-color: #46536b;
+  border-color: var(--field-border);
+  border-radius: 2px;
 }
 
 .form-select:focus,
 .form-control:focus {
+  background-color: var(--page-background);
   color: var(--main-text);
   border-color: var(--heading-accent);
-  box-shadow: 0 0 0 0.25rem rgb(96 165 250 / 25%);
+  box-shadow: 0 0 0 0.2rem rgb(96 165 250 / 30%);
 }
 
-.form-control:focus {
-  background-color: var(--page-background);
+.form-select:disabled {
+  background-color: var(--panel-background);
+  color: var(--secondary-text);
+}
+
+.form-label {
+  font-weight: 500;
 }
 
 .form-text {
@@ -227,44 +395,93 @@ h2 {
 }
 
 /* Movie details Modal */
+.modal {
+  --bs-modal-border-radius: 2px;
+  --bs-modal-inner-border-radius: 1px;
+}
+
 .modal-content {
   background-color: var(--panel-background);
   color: var(--main-text);
-  border: 1px solid #46536b;
+  border: 1px solid var(--field-border);
 }
 
 .modal-header,
 .modal-footer {
-  border-color: #293142;
+  border-color: var(--rule);
+}
+
+.modal-title {
+  font-size: 2.25rem;
+}
+
+.detail-meta {
+  margin-bottom: 0.25rem;
+  color: var(--secondary-text);
+}
+
+.detail-description {
+  margin: 1.25rem 0 1.5rem;
+}
+
+.detail-heading {
+  margin-bottom: 0.25rem;
+  font-size: 1rem;
+}
+
+.detail-screening {
+  margin-bottom: 0.5rem;
+  color: var(--heading-accent);
+  font-family: var(--display-font);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.15;
 }
 
 /* Ticket Requests page */
-.ticket-panel {
-  background-color: var(--panel-background);
-  border: 1px solid #293142;
-  border-radius: 0.75rem;
-  padding: 1.5rem;
+.ticket-layout {
+  margin-top: 3rem;
 }
 
-.ticket-panel dd {
+.ticket-form fieldset + fieldset {
+  margin-top: 3rem;
+}
+
+.ticket-form legend {
+  float: none;
+  margin-bottom: 1.25rem;
+  font-size: 2rem;
+}
+
+.request-summary h2 {
+  font-size: 2rem;
+}
+
+.ticket-total {
+  margin-bottom: 1.5rem;
+  font-family: var(--display-font);
+  font-size: 4rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.request-summary dt {
+  font-weight: 600;
+}
+
+.request-summary dd {
+  margin-bottom: 0.75rem;
   color: var(--secondary-text);
   overflow-wrap: anywhere;
 }
 
-.ticket-total {
-  color: var(--heading-accent);
-  font-size: 2rem;
-  font-weight: 700;
-}
-
 /* Plain confirmation beneath the form */
 #confirmation {
+  max-width: 38rem;
+  padding-left: 1rem;
+  border-left: 3px solid var(--heading-accent);
   color: var(--main-text);
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-  padding: 0;
-  line-height: 1.7;
   overflow-wrap: anywhere;
 }
 
@@ -273,18 +490,21 @@ h2 {
   --bs-toast-bg: var(--panel-background);
   --bs-toast-header-bg: var(--panel-background);
   --bs-toast-header-color: var(--main-text);
+  --bs-toast-border-radius: 2px;
   color: var(--main-text);
 }
 
 /* Footer */
 .site-footer {
-  border-top: 1px solid #293142;
-  font-size: 0.9rem;
+  border-top: 1px solid var(--rule);
+  color: var(--secondary-text);
+  font-size: 0.875rem;
 }
 
 /* Keyboard accessibility */
 a:focus-visible,
-button:focus-visible {
+button:focus-visible,
+.poster-strip:focus-visible {
   outline: 3px solid var(--heading-accent);
   outline-offset: 4px;
 }
@@ -299,14 +519,76 @@ button:focus-visible {
   padding: 0.75rem 1rem;
 }
 
-/* Mobile adjustments */
-@media (max-width: 767.98px) {
-  .hero {
-    padding: 2rem 0 3rem;
+@media (prefers-reduced-motion: reduce) {
+  .lineup-poster {
+    transition: none;
+  }
+}
+
+/* Desktop: summary sits beside the form */
+@media (min-width: 992px) {
+  .request-summary {
+    position: sticky;
+    top: 2rem;
+    padding-left: 2rem;
+    border-left: 1px solid var(--rule);
+  }
+}
+
+/* Tablet: showtimes drop the venue column width */
+@media (max-width: 991.98px) {
+  .showtime {
+    grid-template-columns: 9rem minmax(0, 1fr) auto;
   }
 
-  .ticket-panel,
-  .screening-panel {
-    padding: 1.25rem;
+  .showtime-venue {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .showtime-link {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .request-summary {
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+  }
+}
+
+/* Mobile */
+@media (max-width: 767.98px) {
+  :root {
+    --space-section: 4rem;
+  }
+
+  .hero,
+  .page-main {
+    padding-top: 3rem;
+  }
+
+  .showtime {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.25rem;
+  }
+
+  .showtime-venue,
+  .showtime-link {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+  }
+
+  .showtime-time {
+    font-size: 2.5rem;
+  }
+
+  .genre-field {
+    width: 100%;
+  }
+
+  .genre-field .form-select {
+    flex: 1;
   }
 }

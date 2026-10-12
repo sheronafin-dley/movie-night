@@ -10,7 +10,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans:wght@900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Instrument+Sans:wght@400;500;600&display=swap"
           rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
@@ -31,7 +31,7 @@
             <div class="container">
                 <a class="navbar-brand" href="index.html"
                    aria-label="Movie Night home">
-                    MOVIE<span class="brand-accent">NIGHT</span>
+                    Movie Night
                 </a>
 
                 <button class="navbar-toggler" type="button"
@@ -54,7 +54,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="btn btn-primary my-2 my-md-0"
-                               href="tickets.html">Request Tickets</a>
+                               href="tickets.html">Request tickets</a>
                         </li>
                     </ul>
                 </div>
@@ -62,19 +62,18 @@
         </nav>
     </header>
 
-    <main class="container py-5" id="main-content">
+    <main class="container page-main" id="main-content">
         <section aria-labelledby="browse-heading">
-            <p class="eyebrow">FIND YOUR NEXT FAVOURITE</p>
-            <h1 class="browse-heading" id="browse-heading">Explore the lineup.</h1>
-            <p class="section-description">
+            <h1 id="browse-heading">Explore the lineup.</h1>
+            <p class="lede">
                 Browse films and special anime episode screenings.
                 Choose a genre or open a title for more information.
             </p>
 
-            <div class="row align-items-end g-3 my-4">
-                <div class="col-sm-6 col-md-4">
+            <div class="lineup-controls">
+                <div class="genre-field">
                     <label class="form-label" for="genreFilter">
-                        Filter by genre
+                        Genre
                     </label>
                     <select class="form-select" id="genreFilter">
                         <option value="All">All genres</option>
@@ -85,15 +84,13 @@
                     </select>
                 </div>
 
-                <div class="col-sm-6">
-                    <p class="section-description mb-0"
-                       id="resultsCount" role="status"></p>
-                </div>
+                <p class="section-description mb-0"
+                   id="resultsCount" role="status"></p>
             </div>
 
-            <!-- JavaScript inserts the title cards here -->
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3
-                        row-cols-xl-5 g-4" id="movieGrid"></div>
+            <!-- JavaScript inserts the titles here -->
+            <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5
+                        gx-3 gx-lg-4 gy-5" id="movieGrid"></div>
 
             <noscript>
                 <p>Please enable JavaScript to browse the movie lineup.</p>
@@ -118,18 +115,18 @@
                     <div class="row g-4">
                         <div class="col-md-4">
                             <img id="modalPoster"
-                                 class="img-fluid rounded"
+                                 class="img-fluid"
                                  alt="">
                         </div>
 
                         <div class="col-md-8">
-                            <p class="badge screening-badge" id="modalType"></p>
-                            <p class="movie-category" id="modalGenre"></p>
-                            <p id="modalDescription"></p>
+                            <p class="detail-meta" id="modalType"></p>
+                            <p class="detail-meta" id="modalGenre"></p>
+                            <p class="detail-description" id="modalDescription"></p>
 
-                            <h3 class="h5">Screening information</h3>
-                            <p id="modalScreening"></p>
-                            <p class="section-description small">
+                            <h3 class="detail-heading">Screening</h3>
+                            <p class="detail-screening" id="modalScreening"></p>
+                            <p class="fine-print mb-0">
                                 Schedules are fictional examples for this
                                 student project.
                             </p>
@@ -141,7 +138,7 @@
                     <button class="btn btn-outline-light" type="button"
                             data-bs-dismiss="modal">Close</button>
                     <a class="btn btn-primary" href="tickets.html">
-                        Request Tickets
+                        Request tickets
                     </a>
                 </div>
             </div>

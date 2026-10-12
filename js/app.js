@@ -73,7 +73,7 @@ const genreFilter = document.querySelector("#genreFilter");
 const resultsCount = document.querySelector("#resultsCount");
 const movieModal = document.querySelector("#movieModal");
 
-// Build a Bootstrap card for each matching title.
+// Build a poster entry for each matching title.
 function renderMovies(selectedGenre) {
     movieGrid.innerHTML = "";
 
@@ -87,32 +87,29 @@ function renderMovies(selectedGenre) {
             column.className = "col";
 
             // This template uses only our own fixed project data.
+            // The button's ::after covers the whole entry, so the poster opens the Modal too.
             column.innerHTML = `
-                <article class="card movie-card h-100">
+                <article class="lineup-item">
                     <img src="${movie.image}"
-                         class="card-img-top movie-poster"
+                         class="lineup-poster"
                          alt="${movie.title} poster"
                          loading="lazy">
 
-                    <div class="card-body d-flex flex-column">
-                        <div>
-                            <span class="badge screening-badge mb-3">
-                                ${getScreeningType(movie)}
-                            </span>
-                        </div>
+                    <h2 class="lineup-title">${movie.title}</h2>
+                    <p class="title-meta">
+                        ${movie.isEpisodeScreening
+                            ? `${movie.genre}, special episode screening`
+                            : `${movie.genre} film`}
+                    </p>
 
-                        <h2 class="card-title h5">${movie.title}</h2>
-                        <p class="movie-category">${movie.genre}</p>
-
-                        <button class="btn btn-primary mt-auto"
-                                type="button"
-                                data-movie-id="${movie.id}"
-                                data-bs-toggle="modal"
-                                data-bs-target="#movieModal"
-                                aria-label="View details for ${movie.title}">
-                            View Details
-                        </button>
-                    </div>
+                    <button class="lineup-details"
+                            type="button"
+                            data-movie-id="${movie.id}"
+                            data-bs-toggle="modal"
+                            data-bs-target="#movieModal"
+                            aria-label="View details for ${movie.title}">
+                        View details
+                    </button>
                 </article>
             `;
 
@@ -350,10 +347,10 @@ if (ticketForm) {
         // textContent displays the name safely as text.
         confirmation.textContent =
             `Thank you, ${nameInput.value}. Your demonstration request ` +
-            `for ${quantity} ${ticketWord} to ${movie.title} is complete. ` +
+            `for ${quantity} ${ticketWord} to ${movie.title} has been sent. ` +
             `Screening: ${movie.screening}. ` +
             `Sample total: ${formatMoney(total)}. ` +
-            `No real booking or email has been sent.`;
+            `No real booking was made and no email was sent.`;
 
         confirmation.classList.remove("d-none");
         requestToast.show();
@@ -365,7 +362,7 @@ if (ticketForm) {
 
         $(this)
             .attr("aria-expanded", String(!isExpanded))
-            .text(isExpanded ? "Show Summary" : "Hide Summary");
+            .text(isExpanded ? "Show summary" : "Hide summary");
 
         const reduceMotion = window.matchMedia(
             "(prefers-reduced-motion: reduce)"
