@@ -29,6 +29,29 @@ No real bookings, payments or emails are made.
 
 All three pages share the same navigation bar, footer and visual style.
 
+## Assignment requirements
+
+How the project meets each requirement in the assignment brief.
+
+| Requirement (brief section) | How Movie Night meets it |
+|---|---|
+| At least three functional pages with consistent navigation (4) | Home, Movies and Ticket Requests share one navbar, footer and visual style. |
+| Semantic HTML and heading hierarchy (5) | Uses `header`, `nav`, `main`, `section`, `article`, `aside`, `figure`, `footer`, `fieldset` and `time`. Each page has one `h1`, with `h2` and `h3` below it. |
+| Meaningful links, labelled forms, alt text (5) | Links name their action (for example "Request tickets for Judy at 6:00 PM"). Every form field has a label. Every poster has descriptive alt text. |
+| Responsive Bootstrap navbar (6) | `navbar-expand-md` collapses into a menu button on small screens. |
+| Bootstrap containers and grid (6) | `container`, `row`, `col-*` and `row-cols-*` lay out every page. |
+| Bootstrap cards (6) | Each film on the Movies page is a Bootstrap `card`. |
+| Bootstrap buttons and form controls (6) | `btn`, `btn-primary`, `btn-outline-light`, `form-control`, `form-select` and Bootstrap validation styles. See [Bootstrap usage](#bootstrap-usage). |
+| Bootstrap spacing and responsive utilities (6) | For example `mb-0`, `py-4`, `my-2 my-md-0`, `gap-md-3`, `gx-lg-5` and `d-none`. |
+| At least two Bootstrap JavaScript components (6, 11) | Three are used: **Collapse** (navbar), **Modal** (film details) and **Toast** (request sent). |
+| Responsive design (7) | Tested at 375px (mobile), 768px (tablet) and 1280px (desktop). |
+| JavaScript fundamentals (8) | Variables, data types, an array, objects, conditions, functions, iteration, DOM selection, DOM changes and events. See [JavaScript concepts](#javascript-concepts). |
+| At least one interactive workflow (9) | Four are included: the genre filter, the details Modal, the validated ticket form and the live ticket total. |
+| Form with client-side validation (10) | The ticket form is submitted through JavaScript, which reads and checks each value. It highlights problems and confirms success with a message and a Toast. |
+| jQuery for a meaningful interaction (2) | The Hide summary / Show summary button. See [jQuery](#jquery). |
+| GitHub repository with regular commits (12) | [github.com/sheronafin-dley/movie-night](https://github.com/sheronafin-dley/movie-night), with a descriptive message on every commit. |
+| AI use disclosed (13) | See [AI assistance](#ai-assistance). |
+
 ## Features
 
 - **Poster reel (home page):**
@@ -83,14 +106,16 @@ All three pages share the same navigation bar, footer and visual style.
 - Containers and grid (`container`, `row`, `col-*`, `row-cols-*`)
 - Cards for each film on the Movies page (`card`, `card-img-top`,
   `card-body`, `card-title`, `card-text`)
-- Buttons (`btn`, `btn-primary`, `btn-outline-light`, `btn-lg`)
+- Buttons (`btn`, `btn-primary`, `btn-outline-light`, `btn-lg`, `btn-sm`)
 - Form controls and validation styles (`form-control`, `form-select`,
   `form-label`, `form-text`, `is-invalid`, `invalid-feedback`)
 - Spacing and responsive utilities (`mb-0`, `mt-4`, `py-4`, `my-2 my-md-0`,
   `gap-md-3`, `gx-lg-5`, `d-none`, `w-100`, `visually-hidden`,
   `visually-hidden-focusable`)
 
-## JavaScript concepts (`js/app.js`)
+## JavaScript concepts
+
+All JavaScript is in `js/app.js`.
 
 | Concept | Where it is used |
 |---|---|
@@ -175,17 +200,18 @@ posters used as their artwork.
 
 ## AI assistance
 
-AI tools were used as development aids, as the assignment allows:
+**AI tools were used as development aids, as permitted by the assignment:**
 
-- **ChatGPT** helped with planning the website concept and pages.
-- **Claude Code** (Anthropic) was used near the end of the project to:
-  - redesign the visual style, by rewriting `css/styles.css` and adjusting the
-    page layout markup;
-  - update the film lineup, text and genres for the new images;
-  - build the continuous poster reel on the home page;
-  - check the site against the assignment requirements.
+- **ChatGPT** assisted with brainstorming the website concept, planning the
+  pages and organizing the project requirements.
+- **Claude Code (Anthropic)** was used as a supplementary learning and reference
+  tool to:
+  - provide links to coding examples and relevant documentation;
+  - suggest alternative design approaches and layout ideas;
+  - explain HTML, CSS and JavaScript concepts;
+  - provide general guidance on responsive web design;
+  - clarify coding techniques and recommended development practices;
+  - help interpret assignment requirements.
 
-The site structure, page content and JavaScript functionality (filter, Modal,
-form validation, live total, Toast and jQuery toggle) were built by me in
-earlier commits. I reviewed and tested all AI-assisted changes, and I can
-explain the code.
+AI tools were used to support research, learning and problem-solving throughout
+the project. All AI-assisted suggestions were reviewed and tested before being incorporated into the website.
