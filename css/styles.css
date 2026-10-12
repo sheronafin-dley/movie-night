@@ -1,13 +1,13 @@
 /* Shared website colours */
 :root {
-  --page-background: #0b0d12;
-  --panel-background: #151a24;
-  --accent-blue: #2563eb;
-  --heading-accent: #60a5fa;
-  --main-text: #f8fafc;
-  --secondary-text: #b8c0cc;
-  --rule: #293142;
-  --field-border: #46536b;
+  --page-background: #140b0d;
+  --panel-background: #22131a;
+  --button-color: #b3262f;
+  --accent: #f2b25c;
+  --main-text: #f7f1ea;
+  --secondary-text: #c9b8b0;
+  --rule: #3a2329;
+  --field-border: #5c3a42;
 
   --display-font: "Big Shoulders Display", "Arial Narrow", sans-serif;
   --text-font: "Instrument Sans", "Segoe UI", sans-serif;
@@ -64,7 +64,7 @@ h3 {
 }
 
 a {
-  color: var(--heading-accent);
+  color: var(--accent);
   text-underline-offset: 0.2em;
 }
 
@@ -95,8 +95,10 @@ a:hover {
   padding: 1rem 0;
 }
 
+/* Heaviest weight is kept for the wordmark so it reads as a logo */
 .navbar-brand {
-  font-size: 2rem;
+  font-size: 2.375rem;
+  font-weight: 900;
   color: var(--main-text);
 }
 
@@ -112,7 +114,7 @@ a:hover {
 
 .navbar-nav .nav-link.active {
   text-decoration: underline;
-  text-decoration-color: var(--heading-accent);
+  text-decoration-color: var(--accent);
   text-decoration-thickness: 2px;
   text-underline-offset: 0.5em;
 }
@@ -125,12 +127,12 @@ a:hover {
 }
 
 .btn-primary {
-  --bs-btn-bg: var(--accent-blue);
-  --bs-btn-border-color: var(--accent-blue);
-  --bs-btn-hover-bg: #1d4ed8;
-  --bs-btn-hover-border-color: #1d4ed8;
-  --bs-btn-active-bg: #1e40af;
-  --bs-btn-active-border-color: #1e40af;
+  --bs-btn-bg: var(--button-color);
+  --bs-btn-border-color: var(--button-color);
+  --bs-btn-hover-bg: #951e26;
+  --bs-btn-hover-border-color: #951e26;
+  --bs-btn-active-bg: #7d1820;
+  --bs-btn-active-border-color: #7d1820;
 }
 
 .btn-outline-light {
@@ -173,23 +175,55 @@ a:hover {
   gap: 1.5rem;
 }
 
-/* Poster strip: starts on the content edge, runs to the window edge */
-.poster-strip {
+/* Poster reel: runs edge to edge and loops continuously */
+.reel-viewport {
+  overflow: hidden;
+}
+
+.reel-track {
   display: flex;
-  gap: 2px;
-  margin: 0 calc(50% - 50vw) 0 0;
-  padding: 0 1rem 1rem 0;
+  width: max-content;
+  margin: 0;
+  padding: 0;
   list-style: none;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  /* The track holds the posters twice, so sliding half its width loops seamlessly */
+  animation: reel-scroll 50s linear infinite;
 }
 
-.poster-strip li {
-  flex: 0 0 clamp(10rem, 21vw, 15rem);
-  scroll-snap-align: start;
+.reel-track.is-paused,
+.reel-viewport:hover .reel-track,
+.reel-viewport:focus-within .reel-track {
+  animation-play-state: paused;
 }
 
-.poster-strip img,
+@keyframes reel-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.reel-item {
+  flex: 0 0 auto;
+  /* Padding, not gap, so both halves of the track are the same width */
+  padding-right: 2px;
+}
+
+/* Shared height, natural width, so vintage posters are never cropped */
+.reel-item img {
+  display: block;
+  width: auto;
+  height: clamp(15rem, 31.5vw, 22.5rem);
+}
+
+.reel-toggle {
+  margin-top: 1.25rem;
+  padding: 0.4rem 0.9rem;
+}
+
 .lineup-poster {
   display: block;
   width: 100%;
@@ -198,6 +232,9 @@ a:hover {
 }
 
 .poster-caption {
+  /* Wraps to the image width instead of widening the figure */
+  inline-size: 0;
+  min-inline-size: 100%;
   padding: 0.75rem 1rem 0 0;
   font-size: 0.9375rem;
   line-height: 1.35;
@@ -253,7 +290,7 @@ a:hover {
 }
 
 .showtime-time {
-  color: var(--heading-accent);
+  color: var(--accent);
   font-family: var(--display-font);
   font-size: 3rem;
   font-weight: 800;
@@ -317,7 +354,12 @@ a:hover {
 }
 
 /* Movies page: unframed poster grid */
+/* A Bootstrap card with its frame removed so the poster stands alone */
 .lineup-item {
+  --bs-card-bg: transparent;
+  --bs-card-border-width: 0;
+  --bs-card-border-radius: 0;
+  --bs-card-inner-border-radius: 0;
   position: relative;
 }
 
@@ -343,7 +385,7 @@ a:hover {
   padding: 0;
   border: 0;
   background: none;
-  color: var(--heading-accent);
+  color: var(--accent);
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 0.2em;
@@ -357,7 +399,7 @@ a:hover {
 
 .lineup-item:hover .lineup-poster,
 .lineup-item:has(.lineup-details:focus-visible) .lineup-poster {
-  outline-color: var(--heading-accent);
+  outline-color: var(--accent);
 }
 
 .lineup-item:hover .lineup-details {
@@ -377,8 +419,8 @@ a:hover {
 .form-control:focus {
   background-color: var(--page-background);
   color: var(--main-text);
-  border-color: var(--heading-accent);
-  box-shadow: 0 0 0 0.2rem rgb(96 165 250 / 30%);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 0.2rem rgb(242 178 92 / 30%);
 }
 
 .form-select:disabled {
@@ -431,7 +473,7 @@ a:hover {
 
 .detail-screening {
   margin-bottom: 0.5rem;
-  color: var(--heading-accent);
+  color: var(--accent);
   font-family: var(--display-font);
   font-size: 1.75rem;
   font-weight: 700;
@@ -449,12 +491,12 @@ a:hover {
 
 .ticket-form legend {
   float: none;
-  margin-bottom: 1.25rem;
-  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.625rem;
 }
 
 .request-summary h2 {
-  font-size: 2rem;
+  font-size: 1.625rem;
 }
 
 .ticket-total {
@@ -480,7 +522,7 @@ a:hover {
 #confirmation {
   max-width: 38rem;
   padding-left: 1rem;
-  border-left: 3px solid var(--heading-accent);
+  border-left: 3px solid var(--accent);
   color: var(--main-text);
   overflow-wrap: anywhere;
 }
@@ -504,8 +546,8 @@ a:hover {
 /* Keyboard accessibility */
 a:focus-visible,
 button:focus-visible,
-.poster-strip:focus-visible {
-  outline: 3px solid var(--heading-accent);
+.reel-viewport:focus-visible {
+  outline: 3px solid var(--accent);
   outline-offset: 4px;
 }
 
@@ -522,6 +564,20 @@ button:focus-visible,
 @media (prefers-reduced-motion: reduce) {
   .lineup-poster {
     transition: none;
+  }
+
+  /* No auto-scrolling: one set of posters the visitor can scroll themselves */
+  .reel-track {
+    animation: none;
+  }
+
+  .reel-viewport {
+    overflow-x: auto;
+  }
+
+  .reel-clone,
+  .reel-toggle {
+    display: none;
   }
 }
 

@@ -3,68 +3,138 @@
 const movies = [
     {
         id: 1,
-        title: "Jujutsu Kaisen: Shibuya Incident",
-        genre: "Anime",
-        isEpisodeScreening: true,
-        image: "images/jujutsu-kaisen.jfif",
+        title: "Judy",
+        genre: "Biography / Drama",
+        isComingSoon: false,
+        image: "images/judy.avif",
+        imageAlt: "Judy film poster on a Paris street at night",
         description:
-            "Join our anime night for selected episodes from the Shibuya Incident arc.",
-        screening:
-            "October 17, 2026, at 7:00 PM | Movie Night Anime Lounge"
-    },
-    {
-        id: 2,
-        title: "Death Note",
-        genre: "Anime",
-        isEpisodeScreening: true,
-        image: "images/death-note.jfif",
-        description:
-            "Explore a tense battle of intelligence during a screening of selected Death Note episodes.",
-        screening:
-            "October 17, 2026, at 5:00 PM | Movie Night Anime Lounge"
-    },
-    {
-        id: 3,
-        title: "Cruella",
-        genre: "Crime / Drama",
-        isEpisodeScreening: false,
-        image: "images/cruella.jfif",
-        description:
-            "Make it a film night with Cruella and its bold fashion-inspired visual style.",
+            "Renée Zellweger plays Judy Garland in the winter of 1968, " +
+            "as she arrives in London for a run of sold-out concerts.",
         screening:
             "October 16, 2026, at 6:00 PM | Movie Night Screening Room"
     },
     {
-        id: 4,
+        id: 2,
+        title: "Pulp Fiction",
+        genre: "Crime",
+        isComingSoon: false,
+        image: "images/pulp-fiction.avif",
+        imageAlt: "Pulp Fiction soundtrack record in a record store bin",
+        description:
+            "Quentin Tarantino's interlocking Los Angeles crime stories, " +
+            "back on the big screen for a late-night film night.",
+        screening:
+            "October 17, 2026, at 8:00 PM | Movie Night Screening Room"
+    },
+    {
+        id: 3,
         title: "Spider-Man: Brand New Day",
         genre: "Superhero",
-        isEpisodeScreening: false,
-        image: "images/spider-man.jfif",
+        isComingSoon: true,
+        image: "images/spider-man.avif",
+        imageAlt: "Spider-Man suit against a black background",
         description:
             "A featured superhero title in our demonstration movie lineup.",
         screening:
             "Sample screening time to be announced."
     },
     {
-        id: 5,
-        title: "Terrifier",
-        genre: "Horror",
-        isEpisodeScreening: false,
-        image: "images/terrifier.jfif",
+        id: 4,
+        title: "Fire Wrecks a Forest",
+        genre: "Documentary",
+        isComingSoon: false,
+        image: "images/vintage-fire-wrecks-a-forest.avif",
+        imageAlt: "Vintage poster of a burning cigarette under clouds of smoke, " +
+            "titled Fire Wrecks a Forest",
         description:
-            "Our horror selection for viewers interested in a frightening film night.",
+            "A classic-style documentary following forest rangers as they race " +
+            "to stop a wildfire started by one careless spark.",
         screening:
-            "October 16, 2026, at 9:00 PM | Movie Night Screening Room"
+            "October 18, 2026, at 2:00 PM | Movie Night Screening Room"
+    },
+    {
+        id: 5,
+        title: "Washington D.C.",
+        genre: "Comedy",
+        isComingSoon: false,
+        image: "images/vintage-washington-dc.avif",
+        imageAlt: "Vintage travel poster of cartoon travellers walking past " +
+            "the Capitol in Washington D.C.",
+        description:
+            "A light travel comedy about a planeload of mismatched passengers " +
+            "on a whirlwind weekend in the capital.",
+        screening:
+            "October 18, 2026, at 4:00 PM | Movie Night Screening Room"
+    },
+    {
+        id: 6,
+        title: "Montreal Winter Sports",
+        genre: "Sports",
+        isComingSoon: false,
+        image: "images/vintage-montreal-winter-sports.avif",
+        imageAlt: "Vintage 1924 poster of a skier in a white fur hat above " +
+            "a snowy ski jump, titled Montreal Winter Sports",
+        description:
+            "Set at Montreal's 1924 winter carnival, a determined skier chases " +
+            "one last championship before the thaw.",
+        screening:
+            "October 18, 2026, at 6:00 PM | Movie Night Screening Room"
     }
 ];
 
 // Reusable function with a meaningful condition.
-function getScreeningType(movie) {
-    if (movie.isEpisodeScreening) {
-        return "Special episode screening";
+function getScreeningStatus(movie) {
+    if (movie.isComingSoon) {
+        return "Coming soon";
     } else {
-        return "Film";
+        return "Now showing";
     }
+}
+
+// Home page: continuous poster reel
+const reelTrack = document.querySelector("#reelTrack");
+const reelToggle = document.querySelector("#reelToggle");
+
+// Builds one poster for the reel. Clones repeat the first set so
+// the loop has no gap; they are hidden from screen readers.
+function createReelItem(movie, isClone) {
+    const item = document.createElement("li");
+    item.className = "reel-item";
+
+    if (isClone) {
+        item.classList.add("reel-clone");
+        item.setAttribute("aria-hidden", "true");
+    }
+
+    item.innerHTML = `
+        <img src="${movie.image}" alt="${isClone ? "" : movie.imageAlt}">
+        <p class="poster-caption">
+            <strong>${movie.title}</strong>
+            <span>${movie.genre}, ${getScreeningStatus(movie).toLowerCase()}</span>
+        </p>
+    `;
+
+    return item;
+}
+
+if (reelTrack && reelToggle) {
+    for (const movie of movies) {
+        reelTrack.appendChild(createReelItem(movie, false));
+    }
+
+    for (const movie of movies) {
+        reelTrack.appendChild(createReelItem(movie, true));
+    }
+
+    // Moving content needs a way to stop it.
+    reelToggle.addEventListener("click", function () {
+        const isPaused = reelTrack.classList.toggle("is-paused");
+
+        reelToggle.textContent = isPaused
+            ? "Play poster reel"
+            : "Pause poster reel";
+    });
 }
 
 // Select elements from the page.
@@ -89,27 +159,27 @@ function renderMovies(selectedGenre) {
             // This template uses only our own fixed project data.
             // The button's ::after covers the whole entry, so the poster opens the Modal too.
             column.innerHTML = `
-                <article class="lineup-item">
+                <article class="card h-100 lineup-item">
                     <img src="${movie.image}"
-                         class="lineup-poster"
-                         alt="${movie.title} poster"
+                         class="card-img-top lineup-poster"
+                         alt="${movie.imageAlt}"
                          loading="lazy">
 
-                    <h2 class="lineup-title">${movie.title}</h2>
-                    <p class="title-meta">
-                        ${movie.isEpisodeScreening
-                            ? `${movie.genre}, special episode screening`
-                            : `${movie.genre} film`}
-                    </p>
+                    <div class="card-body p-0">
+                        <h2 class="card-title lineup-title">${movie.title}</h2>
+                        <p class="card-text title-meta">
+                            ${movie.genre}, ${getScreeningStatus(movie).toLowerCase()}
+                        </p>
 
-                    <button class="lineup-details"
-                            type="button"
-                            data-movie-id="${movie.id}"
-                            data-bs-toggle="modal"
-                            data-bs-target="#movieModal"
-                            aria-label="View details for ${movie.title}">
-                        View details
-                    </button>
+                        <button class="lineup-details"
+                                type="button"
+                                data-movie-id="${movie.id}"
+                                data-bs-toggle="modal"
+                                data-bs-target="#movieModal"
+                                aria-label="View details for ${movie.title}">
+                            View details
+                        </button>
+                    </div>
                 </article>
             `;
 
@@ -127,10 +197,10 @@ function populateMovieDetails(movie) {
 
     const poster = document.querySelector("#modalPoster");
     poster.src = movie.image;
-    poster.alt = `${movie.title} poster`;
+    poster.alt = movie.imageAlt;
 
     document.querySelector("#modalType").textContent =
-        getScreeningType(movie);
+        getScreeningStatus(movie);
 
     document.querySelector("#modalGenre").textContent =
         `Genre: ${movie.genre}`;
@@ -178,7 +248,7 @@ if (ticketForm) {
     const ticketPrice = 1500;
 
     // Only titles with a scheduled sample screening can be requested.
-    const screeningMovieIds = [1, 2, 3, 5];
+    const screeningMovieIds = [1, 2, 4, 5, 6];
 
     const nameInput = document.querySelector("#fullName");
     const emailInput = document.querySelector("#email");
@@ -225,8 +295,7 @@ if (ticketForm) {
         const option = document.createElement("option");
 
         option.value = movie.id;
-        option.textContent =
-            `${movie.title} (${getScreeningType(movie)})`;
+        option.textContent = movie.title;
 
         if (!hasAvailableScreening(movie)) {
             option.disabled = true;

@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-          content="Discover films and special anime episode screenings, explore genres and request tickets.">
+          content="See what's showing at Movie Night, explore genres and request tickets.">
 
     <title>Movie Night | Home</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Instrument+Sans:wght@400;500;600&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Instrument+Sans:wght@400;500;600&display=swap"
           rel="stylesheet">
 
     <!-- Bootstrap -->
@@ -75,9 +75,9 @@
 
                 <div class="hero-intro">
                     <p class="lede">
-                        Find your next favourite film or join a special
-                        anime episode screening. Explore the titles and
-                        plan your night.
+                        Find your next favourite film, from biopics and
+                        comedies to late-night crime classics. Explore the
+                        titles and plan your night.
                     </p>
 
                     <div class="hero-actions">
@@ -90,57 +90,27 @@
                     </div>
                 </div>
 
-                <!-- Featured titles -->
-                <h2 class="visually-hidden" id="featured-heading">
-                    Featured titles
-                </h2>
+            </div>
+        </section>
 
-                <!-- Focusable so keyboard users can scroll it on small screens -->
-                <ul class="poster-strip" tabindex="0"
-                    aria-labelledby="featured-heading">
-                    <li>
-                        <img src="images/jujutsu-kaisen.jfif"
-                             alt="Jujutsu Kaisen Shibuya Incident character poster">
-                        <p class="poster-caption">
-                            <strong>Jujutsu Kaisen: Shibuya Incident</strong>
-                            <span>Anime, special episode screening</span>
-                        </p>
-                    </li>
-                    <li>
-                        <img src="images/death-note.jfif"
-                             alt="Death Note anime character collage poster">
-                        <p class="poster-caption">
-                            <strong>Death Note</strong>
-                            <span>Anime, special episode screening</span>
-                        </p>
-                    </li>
-                    <li>
-                        <img src="images/cruella.jfif"
-                             alt="Cruella poster featuring Emma Stone">
-                        <p class="poster-caption">
-                            <strong>Cruella</strong>
-                            <span>Crime / Drama film</span>
-                        </p>
-                    </li>
-                    <li>
-                        <img src="images/spider-man.jfif"
-                             alt="Spider-Man Brand New Day artwork"
-                             loading="lazy">
-                        <p class="poster-caption">
-                            <strong>Spider-Man: Brand New Day</strong>
-                            <span>Superhero film</span>
-                        </p>
-                    </li>
-                    <li>
-                        <img src="images/terrifier.jfif"
-                             alt="Terrifier poster featuring Art the Clown"
-                             loading="lazy">
-                        <p class="poster-caption">
-                            <strong>Terrifier</strong>
-                            <span>Horror film</span>
-                        </p>
-                    </li>
-                </ul>
+        <!-- Featured titles: a continuous poster reel -->
+        <section class="poster-reel" aria-labelledby="featured-heading">
+            <h2 class="visually-hidden" id="featured-heading">
+                Featured titles
+            </h2>
+
+            <!-- Scrollable by keyboard when motion is reduced -->
+            <div class="reel-viewport" tabindex="0" role="region"
+                 aria-labelledby="featured-heading">
+                <!-- JavaScript builds the posters from the movies array -->
+                <ul class="reel-track" id="reelTrack"></ul>
+            </div>
+
+            <div class="container">
+                <button class="btn btn-outline-light btn-sm reel-toggle"
+                        id="reelToggle" type="button">
+                    Pause poster reel
+                </button>
             </div>
         </section>
 
@@ -165,29 +135,14 @@
                             <time class="showtime-time"
                                   datetime="2026-10-16T18:00">6:00 PM</time>
                             <p class="showtime-film mb-0">
-                                Cruella
-                                <span class="title-meta">Crime / Drama film</span>
+                                Judy
+                                <span class="title-meta">Biography / Drama</span>
                             </p>
                             <span class="showtime-venue">
                                 Movie Night Screening Room
                             </span>
                             <a class="showtime-link" href="tickets.html"
-                               aria-label="Request tickets for Cruella at 6:00 PM">
-                                Request tickets
-                            </a>
-                        </li>
-                        <li class="showtime">
-                            <time class="showtime-time"
-                                  datetime="2026-10-16T21:00">9:00 PM</time>
-                            <p class="showtime-film mb-0">
-                                Terrifier
-                                <span class="title-meta">Horror film</span>
-                            </p>
-                            <span class="showtime-venue">
-                                Movie Night Screening Room
-                            </span>
-                            <a class="showtime-link" href="tickets.html"
-                               aria-label="Request tickets for Terrifier at 9:00 PM">
+                               aria-label="Request tickets for Judy at 6:00 PM">
                                 Request tickets
                             </a>
                         </li>
@@ -202,31 +157,70 @@
                     <ol class="showtimes-list">
                         <li class="showtime">
                             <time class="showtime-time"
-                                  datetime="2026-10-17T17:00">5:00 PM</time>
+                                  datetime="2026-10-17T20:00">8:00 PM</time>
                             <p class="showtime-film mb-0">
-                                Death Note
-                                <span class="title-meta">Special episode screening</span>
+                                Pulp Fiction
+                                <span class="title-meta">Crime</span>
                             </p>
                             <span class="showtime-venue">
-                                Movie Night Anime Lounge
+                                Movie Night Screening Room
                             </span>
                             <a class="showtime-link" href="tickets.html"
-                               aria-label="Request tickets for Death Note at 5:00 PM">
+                               aria-label="Request tickets for Pulp Fiction at 8:00 PM">
+                                Request tickets
+                            </a>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="showtimes-day">
+                    <h3 class="showtimes-date">
+                        <time datetime="2026-10-18">Sunday, October 18</time>
+                    </h3>
+
+                    <ol class="showtimes-list">
+                        <li class="showtime">
+                            <time class="showtime-time"
+                                  datetime="2026-10-18T14:00">2:00 PM</time>
+                            <p class="showtime-film mb-0">
+                                Fire Wrecks a Forest
+                                <span class="title-meta">Documentary</span>
+                            </p>
+                            <span class="showtime-venue">
+                                Movie Night Screening Room
+                            </span>
+                            <a class="showtime-link" href="tickets.html"
+                               aria-label="Request tickets for Fire Wrecks a Forest at 2:00 PM">
                                 Request tickets
                             </a>
                         </li>
                         <li class="showtime">
                             <time class="showtime-time"
-                                  datetime="2026-10-17T19:00">7:00 PM</time>
+                                  datetime="2026-10-18T16:00">4:00 PM</time>
                             <p class="showtime-film mb-0">
-                                Jujutsu Kaisen: Shibuya Incident
-                                <span class="title-meta">Special episode screening</span>
+                                Washington D.C.
+                                <span class="title-meta">Comedy</span>
                             </p>
                             <span class="showtime-venue">
-                                Movie Night Anime Lounge
+                                Movie Night Screening Room
                             </span>
                             <a class="showtime-link" href="tickets.html"
-                               aria-label="Request tickets for Jujutsu Kaisen: Shibuya Incident at 7:00 PM">
+                               aria-label="Request tickets for Washington D.C. at 4:00 PM">
+                                Request tickets
+                            </a>
+                        </li>
+                        <li class="showtime">
+                            <time class="showtime-time"
+                                  datetime="2026-10-18T18:00">6:00 PM</time>
+                            <p class="showtime-film mb-0">
+                                Montreal Winter Sports
+                                <span class="title-meta">Sports</span>
+                            </p>
+                            <span class="showtime-venue">
+                                Movie Night Screening Room
+                            </span>
+                            <a class="showtime-link" href="tickets.html"
+                               aria-label="Request tickets for Montreal Winter Sports at 6:00 PM">
                                 Request tickets
                             </a>
                         </li>
